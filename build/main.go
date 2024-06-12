@@ -311,10 +311,7 @@ func buildWebp() (err error) {
 		sendCmd("rm", "-rf", libDir)
 		return fmt.Errorf("make install failed: %s", err)
 	}
-	err = os.Remove(fmt.Sprintf("%s/source/libwebp/configure~", workingDir))
-	if err != nil {
-		return
-	}
+	os.Remove(fmt.Sprintf("%s/source/libwebp/configure~", workingDir))
 	return
 }
 func main() {
