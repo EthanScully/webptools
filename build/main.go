@@ -332,7 +332,7 @@ func main() {
 			panic(err)
 		}
 	}
-	ouputPath := fmt.Sprintf("bin/mp4-remux-%s-%s", OS, ARCH)
+	ouputPath := fmt.Sprintf("bin/webp-tools-%s-%s", OS, ARCH)
 	err = os.Mkdir("bin", 0770)
 	if err != nil && !strings.Contains(err.Error(), "exists") {
 		panic(err)
@@ -345,7 +345,7 @@ func main() {
 	}
 	err = sendCmd("go", "build", "-ldflags=-s -w", "-o", ouputPath, "cli/main.go")
 	if err != nil {
-		fmt.Println("look at lib/ffmpeg.go for any lib requirments")
+		fmt.Println("look at lib/config.go for any lib requirments")
 		panic(err)
 	}
 }
