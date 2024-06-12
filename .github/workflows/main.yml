@@ -1,0 +1,34 @@
+name: Docker Build
+on:
+  push:
+    tags:
+      - "v*"
+jobs:
+  build:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - name: Create build files
+        run: |
+          docker run --rm \
+          -v $(pwd):/mnt/ -w /mnt/ \
+          -t debian:sid bash -c '
+          apt update
+          apt install build-essential make nasm yasm zlib1g-dev liblzma-dev golang ca-certificates tar gcc-aarch64-linux-gnu gcc autoconf automake libtool -y
+          go run build/* mingw
+          go run build/*
+          go run build/* --arch arm64
+          go run build/* --os windows
+          go run build/* --os windows --arch arm64'
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            webp-tools-linux-amd64
+            webp-tools-linux-arm64
+            webp-tools-windows-amd64.exe
+            webp-tools-windows-arm64.exe
