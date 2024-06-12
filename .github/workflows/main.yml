@@ -20,10 +20,10 @@ jobs:
           apt update
           apt install build-essential make nasm yasm zlib1g-dev liblzma-dev golang ca-certificates tar gcc-aarch64-linux-gnu gcc autoconf automake libtool -y
           go run build/* mingw
-          go run build/*
-          go run build/* --arch arm64
-          go run build/* --os windows
-          go run build/* --os windows --arch arm64'
+          go run build/* --output webp-tools-linux-amd64
+          go run build/* --arch arm64 --output webp-tools-linux-arm64
+          go run build/* --os windows --output webp-tools-windows-amd64.exe
+          go run build/* --os windows --arch arm64 --output webp-tools-windows-arm64.exe'
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
