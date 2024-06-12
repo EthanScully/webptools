@@ -1,13 +1,13 @@
 package webp
 
 /*
-#cgo linux CFLAGS: -Ilinux/include
-#cgo windows CFLAGS: -Iwin/include
+#cgo linux,amd64 CFLAGS: -Ilinux-amd64/include
+#cgo windows,amd64 CFLAGS: -Iwindows-amd64/include
 #cgo LDFLAGS: -static
 #cgo LDFLAGS: -lwebpmux -lwebp -lsharpyuv
 #cgo LDFLAGS: -lavformat -lswresample -lswscale -lavcodec -lavutil
-#cgo linux LDFLAGS: -Llinux/lib -lz -lm
-#cgo windows LDFLAGS: -Lwin/lib -lbcrypt
+#cgo linux,amd64 LDFLAGS: -Llinux-amd64/lib -lz -lm
+#cgo windows,amd64 LDFLAGS: -Lwindows-amd64/lib -lbcrypt
 */
 import "C"
 import (
