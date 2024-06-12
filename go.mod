@@ -1,5 +1,5 @@
 module webp
 
-go 1.22.2
+go 1.22
 
-require golang.org/x/image v0.15.0
+require golang.org/x/image v0.17.0
