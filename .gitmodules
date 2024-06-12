@@ -1,0 +1,8 @@
+[submodule "FFmpeg"]
+    path = source/FFmpeg
+    url = https://github.com/FFmpeg/FFmpeg.git
+    branch = n7.0.1
+[submodule "libwebp"]
+    path = source/libwebp
+    url = https://github.com/webmproject/libwebp.git
+    branch = v1.4.0
