@@ -148,10 +148,14 @@ func preCheck() (err error) {
 			CC = "x86_64-linux-gnu-gcc"
 			AR = "x86_64-linux-gnu-ar"
 			ffmpegMakeArgs = append([]string{"cross-prefix=x86_64-linux-gnu-"}, ffmpegMakeArgs...)
+			webpMakeArgs = append([]string{"host=x86_64-linux-gnu"}, webpMakeArgs...)
+			webpMakeArgs = append([]string{"target=x86_64-linux-gnu"}, webpMakeArgs...)
 		case "arm64":
 			AR = "aarch64-linux-gnu-ar"
 			CC = "aarch64-linux-gnu-gcc"
 			ffmpegMakeArgs = append([]string{"cross-prefix=aarch64-linux-gnu-"}, ffmpegMakeArgs...)
+			webpMakeArgs = append([]string{"host=aarch64-linux-gnu"}, webpMakeArgs...)
+			webpMakeArgs = append([]string{"target=aarch64-linux-gnu"}, webpMakeArgs...)
 		default:
 			return fmt.Errorf("amd64 and arm64 support only")
 		}
@@ -306,6 +310,10 @@ func buildWebp() (err error) {
 	if err != nil {
 		sendCmd("rm", "-rf", libDir)
 		return fmt.Errorf("make install failed: %s", err)
+	}
+	err = os.Remove(fmt.Sprintf("%s/source/libwebp/configure~", workingDir))
+	if err != nil {
+		return
 	}
 	return
 }
