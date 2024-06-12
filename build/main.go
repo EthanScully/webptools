@@ -263,7 +263,10 @@ func buildWebp() (err error) {
 	if !ok {
 		return fmt.Errorf("make not found")
 	}
-
+	ok = commandExists("autoreconf")
+	if !ok {
+		return fmt.Errorf("autoreconf not found")
+	}
 	// Create Build Directory
 	buildDir := fmt.Sprintf("%s/bin/webp/%s-%s", workingDir, OS, ARCH)
 	err = os.MkdirAll(buildDir, 0770)
