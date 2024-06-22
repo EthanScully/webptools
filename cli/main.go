@@ -1,7 +1,7 @@
 package main
 
 // build:
-// windows:		CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc GOOS=windows go build -ldflags="-s -w" -o /mnt/c/Users/scull/Desktop/webp.exe webp/cli 
+// windows:		CGO_ENABLED=1 CC=x86_64-w64-mingw32-gcc GOOS=windows go build -ldflags="-s -w" -o /mnt/c/Users/scull/Desktop/webp.exe webp/cli
 // linux:		go build -ldflags="-s -w"
 
 import (
@@ -12,6 +12,7 @@ import (
 	"os"
 	"runtime"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -78,7 +79,15 @@ func cliInit() (config webp.Config) {
 		return
 	}
 	help := func() {
-		fmt.Printf("Usage: <exec> <input file> <quality> <speed> <lossless> <targetsize> <pass> <bytes> <framerate> <width> <height>\n")
+		execName := "<exec>"
+		if len(os.Args) > 0 {
+			execName = os.Args[0]
+			execIndex := strings.LastIndex(execName, string(os.PathSeparator))
+			if execIndex != -1 && len(execName) > execIndex+1 {
+				execName = execName[execIndex+1:]
+			}
+		}
+		fmt.Printf("Usage: %s <input file> <quality> <speed> <lossless> <targetsize> <pass> <bytes> <framerate> <width> <height>\n", execName)
 		fmt.Println("\tinput file:\tinput file to convert")
 		fmt.Println("\tquality:\tquality of the output (0-100)")
 		fmt.Println("\tspeed:\t\tspeed of the output (0-6)")
@@ -260,7 +269,7 @@ func main() {
 			panic(err)
 		}
 	} else {
-		data, err = webp.Animated(config,true)
+		data, err = webp.Animated(config, true)
 		if err != nil {
 			panic(err)
 		}
